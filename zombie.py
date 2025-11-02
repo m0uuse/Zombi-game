@@ -35,7 +35,7 @@ def spawn_zombie_spawner(spawner_list, grid_size):
     """Spawn a purple zombie spawner at a random grid cell."""
     gx = random.randint(0, (900 // grid_size) - 1)
     gy = random.randint(0, (900 // grid_size) - 1)
-    pos = pygame.Vector2(gx * grid_size, gy * grid_size)
+    pos = pygame.Vector2((gx * grid_size)+10, (gy * grid_size)+10)
     radius = grid_size // 2 - 10
     surf = pygame.Surface((radius*2, radius*2), pygame.SRCALPHA)
     pygame.draw.circle(surf, SPAWNER_COLOR, (radius, radius), radius)
