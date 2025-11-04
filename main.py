@@ -2,6 +2,8 @@ import pygame
 import sys
 from player import Player
 from zombie import *
+from GameMap import *
+
 
 pygame.init()
 
@@ -21,6 +23,8 @@ TEXT_COLOR = (200, 200, 200)
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Turn-Based Grid Game")
 font = pygame.font.SysFont(None, 28)
+game_map = GameMap(GRID_SIZE, GRID_WIDTH, GRID_HEIGHT)
+
 
 # === INIT PLAYER & ZOMBIES ===
 player = Player(GRID_SIZE)
@@ -64,16 +68,16 @@ while running:
             if turn == "player":
                 moved = False
                 if event.key == pygame.K_UP:
-                    player.move("up", GRID_WIDTH, GRID_HEIGHT)
+                    player.move("up", GRID_WIDTH, GRID_HEIGHT,game_map)
                     moved = True
                 elif event.key == pygame.K_DOWN:
-                    player.move("down", GRID_WIDTH, GRID_HEIGHT)
+                    player.move("down", GRID_WIDTH, GRID_HEIGHT,game_map)
                     moved = True
                 elif event.key == pygame.K_LEFT:
-                    player.move("left", GRID_WIDTH, GRID_HEIGHT)
+                    player.move("left", GRID_WIDTH, GRID_HEIGHT,game_map)
                     moved = True
                 elif event.key == pygame.K_RIGHT:
-                    player.move("right", GRID_WIDTH, GRID_HEIGHT)
+                    player.move("right", GRID_WIDTH, GRID_HEIGHT,game_map)
                     moved = True
                 elif event.key == pygame.K_e:
                     player.search(zombies)
@@ -97,6 +101,7 @@ while running:
                 print("Back to player turn!")
     # === DRAW ===
     window.fill(BACKGROUND_COLOR)
+    game_map.draw(window)
     player.draw(window)
     draw_grid(window)
     draw_spawners(window, spawners)
